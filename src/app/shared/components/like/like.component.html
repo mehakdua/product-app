@@ -1,0 +1,6 @@
+<div [class]="isMouseOver?'highlight':''" (mouseenter) ="isMouseOver =true" (mouseleave) ="isMouseOver =false">
+<!--<div [ngClass]="{highlight: isMouseOver}" (mouseenter) ="isMouseOver =true" (mouseleave) ="isMouseOver =false">-->
+<div>Likes{{likes}}</div>
+<button (click)="up()">+1</button>
+<button (click)="down()">-1</button>
+</div>

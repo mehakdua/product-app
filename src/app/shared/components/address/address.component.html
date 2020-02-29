@@ -1,0 +1,10 @@
+<!--contact is parent
+    parnt to child, property binding @Input
+    -->
+<ng-content></ng-content>
+<div>
+    <p>City {{address.city}}</p>
+    <p>City {{address.state}}</p>
+    <p *ngIf="address.pincode">City {{address.pincode}}</p>
+    <button (click)="contact()">Contact</button>
+</div>

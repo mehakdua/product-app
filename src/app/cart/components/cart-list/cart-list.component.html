@@ -1,0 +1,25 @@
+<h3>Cart-list!</h3>
+<!-- # = template reference variable 
+
+-->
+    <table *ngIf="cartItems.length >0 else emptyTable">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+        <tr *ngFor="let cartItem of (cartItems| sort:'price')">
+            <td>{{cartItem.name | uppercase}}</td>
+            <td>{{cartItem.price | currency:'INR'}}</td>
+            <td>{{cartItem.qty}}</td>
+            <td>{{cartItem.price*cartItem.qty | currency:'INR'}}</td>
+            <td><button (click)="removeItem(cartItem.id)">Remove</button></td>
+        </tr>
+    </table>
+    <ng-template #emptyTable>
+        <span>No Items in shopping cart</span>
+    </ng-template>
+<ul>
+
+</ul>

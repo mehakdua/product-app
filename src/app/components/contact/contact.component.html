@@ -1,0 +1,15 @@
+<h2>Contact</h2>
+<!--elvis operator  ? for null chek-->
+<p>Main Office City {{mainOffice?.city}}</p>
+<app-address [address] ="headOffice" (contactEvent)="contactHandler($event)">
+    <h4>Head address</h4>
+</app-address>
+<app-address [address] ="branchOffice" (contactEvent)="contactHandler($event)">
+    <h4>Branch address</h4>
+</app-address>
+<p>Contact likes!</p>
+<p>Contact page likes {{contactLikes}}</p>
+<app-like  [(likes)]="contactLikes"></app-like> 
+<p #message>fg</p>
+<input #greeting/>
+<button (click)="message.innerHTML =greeting.value">set message</button>

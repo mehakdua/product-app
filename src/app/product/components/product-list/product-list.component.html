@@ -1,0 +1,43 @@
+
+<h2>Products{{(products$|async)?.length}}</h2>
+<select name="fieldName" [(ngModel)]="fieldName">
+  <option value="price">Price</option>
+  <option value="year">Year</option>
+</select>
+
+<select name="operator"  [(ngModel)]="operator">
+  <option value=">">&gt;</option>
+  <option value="<">&lt;</option>
+  <option value="==">===</option>
+</select>
+
+
+<input name="expectedValue" type="number"  [(ngModel)]="expectedValue"/>
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Year</th>
+      <th>+Cart</th>
+    </tr>
+  
+    <tr *ngFor="let product of (products$ | async |filter:fieldName:operator:expectedValue|sort:'price') ">
+      <td>
+          <a [routerLink]="['/products', 'edit', product.id, {source:'list'}]" >
+      
+        {{product.name}}
+  
+        </a>
+      </td>
+      <td>{{product.price}}</td>
+      <td>{{product.year}}</td>
+      
+      <td>
+        <button (click)="addToCart(product)">+Cart</button>
+      </td>
+      <td>
+        <button (click)="deleteFromProduct(product.id)">Delete</button>
+      </td>
+    </tr>
+      
+  </table>

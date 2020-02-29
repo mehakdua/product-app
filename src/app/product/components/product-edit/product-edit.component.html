@@ -1,0 +1,28 @@
+<p>product-edit works!</p>
+<h2>Product {{product.id?'Edit':'Create'}} {{product.name}}</h2>
+<!--#productName refers to input DOM element
+ #productNameModel="ngModel" refers to ngModel direcive instance
+-->
+<form #productForm="ngForm" (ngSubmit)="save()">
+        name
+        <input name="name" #productName #productNameModel="ngModel" type="text" [(ngModel)]="product.name"  minlength="3" required/>
+        <p *ngIf="productNameModel.invalid  && productNameModel.dirty">
+           Enter valid name
+        </p>
+        <p *ngIf="productNameModel.errors?.required">Name is required</p>
+        <p *ngIf="productNameModel.errors?.minlength">Minimum {{productNameModel.errors?.minlength.requiredLength}} chars needed</p>
+    <pre>{{productNameModel.errors|json}}</pre>        
+        Price
+        <input name="price" type="number"  #productPrice #productPriceModel="ngModel" [(ngModel)]="product.price" required/>
+        <p *ngIf="productPriceModel.invalid  && productPriceModel.dirty">
+            Enter valid price
+         </p>
+        Year
+        <input name="year" type="number" [(ngModel)]="product.year" pattern ="[0-9]{4}" required/>
+
+        <select name="brandId" [(ngModel)]="product.brandId" required>
+            <option *ngFor="let brand of brands$|async" [value]="brand.id">{{brand.name}}</option>
+        </select>
+        <button type="submit" [disabled]="productForm.invalid">Submit</button>
+
+</form>
