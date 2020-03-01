@@ -18,3 +18,5 @@ ng-content data biding get executed on context of parent scopped style
 <a routerLink="/about" class="button" routerLinkActive="success">About</a>
 <a routerLink="/contact" class="button" routerLinkActive="success">Contact</a>
 <a routerLink="/counter" class="button" routerLinkActive="success">Counter</a>
+<a routerLink="/auth/login" class="button" routerLinkActive="success" *ngIf="!(authenticated$|async)">Login</a>
+<button (click)="logout()" *ngIf="(authenticated$|async)">Logout</button>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiEndPoint:'http://localhost:7070',
+  apiEndPoint:'http://localhost:7070/secured',
+  logEndPoint:'http://localhost:7070',
   authEndPoint:'http://localhost:7070/oauth/token',
   buildName:'Dev'
 };

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {DomSanitizer} from '@angular/platform-browser';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
   aboutLikes=3000;
-  constructor() { }
+  safeHtml:any;
+  html=`<h1>Angular router</h1>`
+  constructor(private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
+    this.safeHtml =this.sanitizer.bypassSecurityTrustHtml(this.html);
   }
 
 }

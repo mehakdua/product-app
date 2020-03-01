@@ -20,5 +20,8 @@ export class FooterComponent implements OnInit {
       console.log("highlight view child",this.highlight.color);
     })
   }
+  raise(){
+    throw new Error('Crash');
+  }
 
 }

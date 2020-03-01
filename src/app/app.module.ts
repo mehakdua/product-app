@@ -1,6 +1,6 @@
 //Module is collection of components, directives,pipes,services
 //dependencies to other modules
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler } from "@angular/core";
 
 import {BrowserModule} from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -15,9 +15,14 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CartModule } from './cart/cart.module';
 import {RouterModule,Route} from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ProductRoutingModule } from './product/product-routing.module';
+//import { ProductRoutingModule } from './product/product-routing.module';
 import {LocationStrategy, HashLocationStrategy,PathLocationStrategy} from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ProductHomeComponent } from './product/components/product-home/product-home.component';
+import { ErrorHandlerService } from './services/error-handler.service';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 const routes:Route[] = [
 {
     path:'',
@@ -32,6 +37,15 @@ const routes:Route[] = [
 {   path:'counter',
     component:CounterComponent
 },
+{
+    path:'products',
+    loadChildren:'./product/product-routing.module#ProductRoutingModule',
+    canActivate:[AuthGuard]
+},
+{
+    path:'auth/login',
+    component:LoginComponent
+},
 {   path:'**',
     component:NotFoundComponent
 }
@@ -42,7 +56,7 @@ const routes:Route[] = [
         SharedModule,
         FormsModule,
         CartModule,
-        ProductRoutingModule,
+       // ProductRoutingModule,
         HttpClientModule,
         RouterModule.forRoot(routes),
     ],
@@ -55,13 +69,23 @@ const routes:Route[] = [
         CounterComponent,
         HeaderComponent,
         FooterComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        LoginComponent
     ],
     providers:[
         /*{
             provide:LocationStrategy,
             useClass:HashLocationStrategy
         }*/
+        {
+            provide: ErrorHandler,
+            useClass: ErrorHandlerService
+        },
+        {
+            provide:HTTP_INTERCEPTORS,
+            useClass:AuthInterceptorService,
+            multi:true
+        }
     ],
     exports:[],
     bootstrap:[AppComponent]

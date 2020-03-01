@@ -5,23 +5,36 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { ProductModule } from './product.module';
+import { CanEditGuard } from './guards/can-edit.guard';
+import { SaveAlertGuard } from './guards/save-alert.guard';
+import { ProductsResolveService } from './resolvers/products.service';
 const routes:Route[]=[
 
     {
-        path:'products',
+      //  path:'products',
+        path:'', //products come from loadChildren
         component:ProductHomeComponent,
         children:[
             {
                 path:'',
                 component:ProductListComponent,
+                resolve:{
+                    products:ProductsResolveService
+                },
+                data:{
+                    roles:['Admin','Mgr']
+                }
             },
             {
                 path:"create",
-                component:ProductEditComponent
+                component:ProductEditComponent,
+                canDeactivate:[SaveAlertGuard]
             },
             {
                 path:"edit/:id",
-                component:ProductEditComponent
+                component:ProductEditComponent,
+                canActivate:[CanEditGuard],
+                canDeactivate:[SaveAlertGuard]
             },
             {
                 path:"search",

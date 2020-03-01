@@ -2,14 +2,14 @@
 <!-- # = template reference variable 
 
 -->
-    <table *ngIf="cartItems.length >0 else emptyTable">
+    <table *ngIf="cartItems?.length >0 else emptyTable">
         <tr>
             <th>Name</th>
             <th>Price</th>
             <th>Qty</th>
             <th>Total</th>
         </tr>
-        <tr *ngFor="let cartItem of (cartItems| sort:'price')">
+        <tr *ngFor="let cartItem of (cartItems |sort:'price')">
             <td>{{cartItem.name | uppercase}}</td>
             <td>{{cartItem.price | currency:'INR'}}</td>
             <td>{{cartItem.qty}}</td>

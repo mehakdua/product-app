@@ -6,7 +6,8 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SaveAlertGuard } from './guards/save-alert.guard';
 
 @NgModule({
   declarations: [ProductHomeComponent, ProductListComponent, ProductEditComponent, ProductSearchComponent],
@@ -14,7 +15,11 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers:[
+    SaveAlertGuard
   ]
 })
 export class ProductModule { }

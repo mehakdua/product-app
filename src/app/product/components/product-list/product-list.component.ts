@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CartService } from 'src/app/cart/services/cart.service';
 import { Product } from '../../models/product';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CartItem } from 'src/app/cart/models/cart-item';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -15,10 +16,17 @@ export class ProductListComponent implements OnInit {
   fieldName:string;
   expectedValue:number;
   operator:string;
-  constructor(private productService:ProductService,private cartService:CartService) { }
+  products:Product[];
+  constructor(private productService:ProductService,private cartService:CartService,private ac:ActivatedRoute) {
+    let products = this.ac.snapshot.data.products;
+    let roles = this.ac.snapshot.data.roles;
+    this.products$ = of(products);
+    console.log(products,roles);
+
+   }
 
   ngOnInit() {
-    this.products$ = this.productService.getProducts();
+    //this.products$ = this.productService.getProducts();
   }
   addToCart(product){
   

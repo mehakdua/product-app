@@ -5,12 +5,13 @@ import { Product } from '../../models/product';
 import { Observable } from 'rxjs';
 import { Brand } from '../../models/brand';
 import { NgForm, NgModel } from '@angular/forms';
+import { Editable } from '../../models/editable';
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss']
 })
-export class ProductEditComponent implements OnInit {
+export class ProductEditComponent implements OnInit,Editable {
   //view Child will be avilable on ngOnIt
 product:Product =new Product();
 brands$:Observable<Brand[]>;
@@ -46,8 +47,12 @@ brands$:Observable<Brand[]>;
     this.productService.saveProduct(this.product).subscribe(savedProduct=>{
       console.log('saved',savedProduct);
       this.product =savedProduct;
+      this.form.reset(this.product); //clear the dirty state
       this.router.navigate(['/products',{source:'edit'}])
     })
+  }
+  isSaved():boolean{
+    return this.form.pristine;
   }
 
 }

@@ -6,21 +6,25 @@ import { CartListComponent } from './components/cart-list/cart-list.component';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import {CartService} from './services/cart.service';
 import { SharedModule } from '../shared/shared.module';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 const routes:Route[] = [
-{path:'cart',component:CartComponent}
+{path:'cart',component:CartComponent},
+{path:'checkout',component:CheckoutComponent}
 
 ]
 @NgModule({
   declarations: [
     CartComponent, 
     CartListComponent, 
-    CartSummaryComponent,
+    CartSummaryComponent, CheckoutComponent,
     
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ],
   exports:[
     CartComponent
